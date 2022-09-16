@@ -29,4 +29,29 @@ def login():
     return render_template("login.html")
 
 def register():
-    return "register"
+    print("register")
+    body = request.get_json()
+    print(body)
+    user = User(username=body["newUsername"], password=body["newPassword"], email=body["newEmail"])
+    try:
+        db.session.add(user)
+        db.session.commit()
+    except:
+        return json.dumps({"success": False, "username": user.username, "email": user.email}) 
+
+    return json.dumps({"success": True, "username": user.username, "email": user.email})
+
+def delete():
+    body = request.get_json()
+    user = User.query.filter(User.username == body["username"]).first()
+
+    if user == None:
+        return json.dumps({"success":False})
+
+    try:
+        db.session.delete(user)
+        db.session.commit()
+    except:
+        return json.dumps({"success":False})
+
+    return json.dumps({"success":True, "username":user.username})

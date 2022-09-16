@@ -10,6 +10,20 @@
             </h1>
             <button onclick=buttonClick()>Show users!</button>
             <div id="result"></div>
-            <button onclick=hideUsers()>Hide Users!</div>
+                <button onclick=hideUsers()>Hide Users!</button>
+            <br><br>
+            <label for="newUsername">New Username:</label>
+            <input name="newUsername" id="newUsername">
+            <label for="newPassword">New Password:</label>
+            <input type="password" id="newPassword">
+            <label for="newEmail">New Email:</label>
+            <input name="newEmail" id="newEmail">
+            <button onclick=registerUser()>Register new user</button>
+            <div class="resultText" id="registerResult"></div>
+            <br><br>
+            <label for="deleteUser">Delete User:</label>
+            <input name="deleteUser" id="deleteUser">
+            <button onclick=deleteUser()>Delete an user</button>
+            <div class="resultText" id="deleteResult"></div>
         </body>
 </html>
