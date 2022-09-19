@@ -10,7 +10,7 @@ cors = CORS(app)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 #configuracion para migraciones
-migrate = Migrate(app, db)
+migrate = Migrate(app, db, compare_type=True)
 #importar las rutas y modelos por si queremos usarlos
 from app import models, topRoutes
 

@@ -17,6 +17,7 @@ class User(db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password = db.Column(db.String(128))
+    age = db.Column(db.Integer)
 
     #permite imprimir el objeto usuario y mostrar datos
     def __repr__(self):
@@ -25,7 +26,7 @@ class User(db.Model):
 
 class Review(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    rating = db.Column(db.Integer)
+    rating = db.Column(db.String(2))
     description = db.Column(db.String(120))
     
     def __repr__(self):
