@@ -7,12 +7,22 @@ function buttonClick() {
 function showResults(data) {
     console.log(data);
     let results = "";
-    for (const datum of data) {
-        console.log(datum);
-        results+="<div id='" + datum.username  + "'>Username: " + datum.username + " Email: " + datum.email + "<br></div>";
-    }
+    let table = "<table><tr><th>#</th><th>Username</th><th>Email</th></tr>";
 
-    document.getElementById("result").innerHTML = results;
+    data.forEach((datum, index) => {
+        console.log(datum);
+        table += "<tr id='" + datum.username + "'>";
+        table += "<td>" + index + "</td>";
+        table += "<td>" + datum.username + "</td>";
+        table += "<td>" + datum.email + "</td>";
+        table += "</tr>";
+    });
+
+    table += "</table>";
+
+    console.log(table);
+
+    document.getElementById("result").innerHTML = table;
 }
 
 function showResult(dato) {
@@ -44,7 +54,7 @@ function hideUser(data) {
 
     const element = document.getElementById(username);
     document.getElementById("deleteResult").innerHTML = "Success!"
-    document.getElementById("result").removeChild(element);
+    element.remove();
 }
 
 function deleteUser() {
