@@ -18,10 +18,24 @@ class User(db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password = db.Column(db.String(128))
     age = db.Column(db.Integer)
+    #relacion con la tabla post, escrita como una clase
+    #esto no es una columna de la tabla, solo permite a flask-sqlalchemy 
+    #hacer los queries automaticamente
+    posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     #permite imprimir el objeto usuario y mostrar datos
     def __repr__(self):
         return '<User {}>'.format(self.username)
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    body = db.Column(db.String(140))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    #esta columna tiene relacion de foreign key con la columna id de user, escrita como SQL
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return '<Post {}>'.format(self.body)
 
 
 class Review(db.Model):
@@ -50,3 +64,16 @@ class Usuario(db.Model):
 
     def __repr__(self):
         return '<Usuario {} {}>'.format(self.username, self.email)
+
+
+association_table = db.Table('association',
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'), primary_key=True),
+    db.Column('page_id', db.Integer, db.ForeignKey('page.id'), primary_key=True)
+)
+
+class Page(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tags = db.relationship('Tag', secondary=association_table, backref='pages')
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key=True)

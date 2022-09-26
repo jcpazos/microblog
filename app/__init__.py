@@ -16,8 +16,10 @@ from app import models, topRoutes
 
 from app.routes.login_bp import login_bp
 from app.routes.profile_bp import profile_bp
+from app.routes.relationships_bp import relationships_bp
 
 app.register_blueprint(login_bp, url_prefix="/login")
 app.register_blueprint(profile_bp, url_prefix="/profile")
+app.register_blueprint(relationships_bp, url_prefix="/relationships")
 #podemos crear las tablas aqui si no queremos hacerlo manualmente
 #db.create_all()
