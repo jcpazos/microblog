@@ -2,9 +2,11 @@ from app import db
 from app.models import User, Post, Page, Tag
 
 def userPostRelation():
-    user = User.query.filter(User.username == "mtorres").first()
+    #usuario para agregar posts
+    user = User.query.filter(User.username == "bcasas").first()
 
     try:
+        #agregar posts al usuario
         posts = []
         for i in range(5):
             body = "body #" + str(i)
@@ -16,9 +18,35 @@ def userPostRelation():
     except Exception as err:
         pass
 
+    #comparar posts del usuario con todos los posts
     print(user)
     print(user.posts.all())
-    print(Post.query.all)
+    print(Post.query.all())
+
+    #usar el backref para referir al autor de un post
+    firstPost = user.posts.all()[0]
+    print(firstPost)
+    print(firstPost.author)
+
+    #funciona con cualquier post
+    post = Post.query.filter(Post.id==10).first()
+    print(post.author)
+
+    #modificar los posts del usuario, mira lo que pasa en la DB cuando se hace esto
+    newPost = Post(body="my new post", user_id=user.id)
+
+    user.posts = [newPost]
+
+    try:
+        db.session.commit()
+    except:
+        pass
+
+    print(User.query.filter(User.username == "bcasas").first().posts.all())
+
+    #borrar el usuaario, mira lo que pasa en la DB cuando se hace esto
+    db.session.delete(user)
+    db.session.commit()
     return ""
 
 def pageTagRelation():
