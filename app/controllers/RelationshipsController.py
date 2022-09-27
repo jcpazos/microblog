@@ -3,7 +3,7 @@ from app.models import User, Post, Page, Tag
 
 def userPostRelation():
     #usuario para agregar posts
-    user = User.query.filter(User.username == "bcasas").first()
+    user = User.query.filter(User.username == "abc123").first()
 
     try:
         #agregar posts al usuario
@@ -42,11 +42,11 @@ def userPostRelation():
     except:
         pass
 
-    print(User.query.filter(User.username == "bcasas").first().posts.all())
+    print(User.query.filter(User.username == "abc123").first().posts.all())
 
-    #borrar el usuaario, mira lo que pasa en la DB cuando se hace esto
-    db.session.delete(user)
-    db.session.commit()
+    # #borrar el usuaario, mira lo que pasa en la DB cuando se hace esto
+    # db.session.delete(user)
+    # db.session.commit()
     return ""
 
 def pageTagRelation():
@@ -74,6 +74,7 @@ def pageTagRelation():
     print(page4)
     print(page3.tags)
     print(tag3.pages)
+    print(page4.tags)
 
     sometag = Tag.query.filter(Tag.id == 1).first()
 
